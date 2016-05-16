@@ -16,7 +16,10 @@ class AutoDoc{
     $file = fopen($filename, 'w');
     fwrite($file, "## $title\n\n");
     foreach($this->docs as $key=>$val){
-      fwrite($file, "### $key\n$val\n\n");
+      fwrite($file, "* [$key](#$key)\n");
+    }
+    foreach($this->docs as $key=>$val){
+      fwrite($file, "### <a name='$key'></a>$key\n$val\n\n");
     }
   }
 
@@ -77,6 +80,10 @@ class AutoDoc{
         }
       }
       $this->idx += 1;
+    }
+    if ($codeBlock){
+      $out[] = '```';
+      $codeBlock = false;
     }
     $this->docs[$header] = implode("\n", $out);
   }
