@@ -5,6 +5,7 @@ class AutoDoc{
   private static $startExample ='/^(\s*)\/\*\s*>/';
   private static $endExample ='/^\s*\*\//';
   private static $getHeader ='/^\s*([a-zA-Z0-9$._]*)/';
+  private static $topLink = '<span style="float:right; font-size:60%">[Top](#__top)</sub>';
 
   private $lines, $idx, $docs;
   public function __construct(){
@@ -20,13 +21,14 @@ class AutoDoc{
     foreach($this->docs as $key=>$val){
       $lvl = $this->indentLevel($key, $indent);
       $index[] =  str_repeat('  ',$lvl-1)."* [$key](#$key)";
-      $out[] = str_repeat('#',$lvl+2)." <a name='$key'></a>$key\n$val\n";
+      $out[] = str_repeat('#',$lvl+2)." <a name='$key'></a>$key ".AutoDoc::$topLink."\n$val\n";
     }
     $file = fopen($filename, 'w');
-    fwrite($file, "## $title\n\n");
+    fwrite($file, "## $title<a name=\"__top\"></a>");
     if (!is_null($home)){
-      fwrite($file, "[Home]($home)\n\n");
+      fwrite($file, "<span style=\"float:right; font-size:60%\">[Home]($home)</sub>");
     }
+    fwrite($file, "\n\n");
     fwrite($file, implode("\n", $index));
     fwrite($file, "\n\n");
     fwrite($file, implode("\n", $out));
