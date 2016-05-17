@@ -16,6 +16,15 @@ SomeFunction(){
   ...
 }
 ```
-The function, method or property on the first line will be used as the header.
-So in the example above "SomeFunction" will be used as the header. A code block
-will be generated with all the lines that start with >. 
+A doc-block always starts with // > followed by a segment of code representing
+the interface being documented. If there are multiple versions of the interface
+all variations should be listed, each on their own line. All successive comment
+lines will be part of the documentation and will be rendered as Markdown.
+
+Example code can be inserted by starting a line with /* >. A useful trick is
+that changing this line to /* > */ will cause an editor to syntax highlight the
+example.
+
+When generating the Markdown, AutoDoc will generate an index at the top of the
+document. It will attempt to nest the index correctly (so "Foo.bar" is a child
+of "Foo" and a sibling to "Foo.glorp");

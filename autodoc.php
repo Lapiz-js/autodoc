@@ -11,17 +11,37 @@ class AutoDoc{
     $this->docs = [];
   }
 
-  public function out($title, $filename){
+  public function out($title, $filename, $home = Null){
     ksort($this->docs);
+    $out = [];
+    $index = [];
+    $indent = [];
+
+    foreach($this->docs as $key=>$val){
+      $lvl = $this->indentLevel($key, $indent);
+      $index[] =  str_repeat('  ',$lvl-1)."* [$key](#$key)";
+      $out[] = str_repeat('#',$lvl+2)." <a name='$key'></a>$key\n$val\n";
+    }
     $file = fopen($filename, 'w');
     fwrite($file, "## $title\n\n");
-    foreach($this->docs as $key=>$val){
-      fwrite($file, "* [$key](#$key)\n");
+    if (!is_null($home)){
+      fwrite($file, "[Home]($home)\n\n");
     }
-    fwrite($file, "\n");
-    foreach($this->docs as $key=>$val){
-      fwrite($file, "### <a name='$key'></a>$key\n$val\n\n");
+    fwrite($file, implode("\n", $index));
+    fwrite($file, "\n\n");
+    fwrite($file, implode("\n", $out));
+  }
+
+  private function indentLevel($key, &$indent){
+    while(count($indent) > 0){
+      if (0 === strpos($key, $indent[0])){
+        break;
+      } else {
+        array_shift($indent);
+      }
     }
+    array_unshift($indent, $key);
+    return count($indent);
   }
 
   public function read($filename){
