@@ -28,3 +28,7 @@ example.
 When generating the Markdown, AutoDoc will generate an index at the top of the
 document. It will attempt to nest the index correctly (so "Foo.bar" is a child
 of "Foo" and a sibling to "Foo.glorp");
+
+Currently, I am testing against github's markdown and
+[Markdown Viewer](https://github.com/Thiht/markdown-viewer) to make sure linking
+works and rendering looks good.

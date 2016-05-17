@@ -31,6 +31,7 @@ class AutoDoc{
     fwrite($file, implode("\n", $index));
     fwrite($file, "\n\n");
     fwrite($file, implode("\n", $out));
+    fclose($file);
   }
 
   private function indentLevel($key, &$indent){
