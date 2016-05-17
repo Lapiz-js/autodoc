@@ -18,6 +18,7 @@ class AutoDoc{
     foreach($this->docs as $key=>$val){
       fwrite($file, "* [$key](#$key)\n");
     }
+    fwrite($file, "\n");
     foreach($this->docs as $key=>$val){
       fwrite($file, "### <a name='$key'></a>$key\n$val\n\n");
     }
