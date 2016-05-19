@@ -4,7 +4,7 @@ class AutoDoc{
   private static $commentLine = '/^\s*\/\/\\s*(.*)/';
   private static $startExample ='/^(\s*)\/\*\s*>/';
   private static $endExample ='/^\s*\*\//';
-  private static $getHeader ='/^\s*([a-zA-Z0-9$._]*)/';
+  private static $getHeader ='/^\s*([a-zA-Z0-9$._:-]*)/';
   private static $topLink = '<sub><sup>[&uarr;Top](#__top)</sup></sub>';
 
   private $lines, $idx, $docs;
