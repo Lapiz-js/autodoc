@@ -20,8 +20,9 @@ class AutoDoc{
 
     foreach($this->docs as $key=>$val){
       $lvl = $this->indentLevel($key, $indent);
-      $index[] =  str_repeat('  ',$lvl-1)."* [$key](#$key)";
-      $out[] = str_repeat('#',$lvl+2)." <a name='$key'></a>$key\n$val\n\n".AutoDoc::$topLink."\n";
+      $safeKey = str_replace(':', '_', $key);
+      $index[] =  str_repeat('  ',$lvl-1)."* [$key](#$safeKey)";
+      $out[] = str_repeat('#',$lvl+2)." <a name='$safeKey'></a>$key\n$val\n\n".AutoDoc::$topLink."\n";
     }
     $file = fopen($filename, 'w');
     fwrite($file, "## $title<a name=\"__top\"></a>\n\n");
