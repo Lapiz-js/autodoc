@@ -36,8 +36,9 @@ class AutoDoc{
   }
 
   private function indentLevel($key, &$indent){
+    //todo: make the split chars (".:") configurable
     while(count($indent) > 0){
-      if (0 === strpos($key, $indent[0])){
+      if (0 === strpos($key, $indent[0]) && strpos('.:', $key[strlen($indent[0])]) !== false ){
         break;
       } else {
         array_shift($indent);
